@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nerimen Azzouz</title>
+<meta name="description" content="Nerimen Azzouz, Software Engineer. Full-stack, .NET, AI and data projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single dark column, sticky nav, code-card hero, filterable project grid */
+:root {
+  --bg: #2A2030;
+  --surface: #33283B;
+  --surface-2: #3B2F44;
+  --line: #4A3D52;
+  --fg: #F5EAF0;
+  --muted: #C2AEBB;
+  --pink: #F4B6CC;
+  --lilac: #C9B8F2;
+  --lilac-bg: #3B3050;
+  --pink-bg: #4A2E3E;
+  --btn: #B9B4D6;
+  --btn-fg: #2A2640;
+  --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+
+/* Nav */
+nav.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+nav.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.logo { font-family: var(--font-mono); color: var(--pink); text-decoration: none; font-weight: 500; }
+.links { display: flex; gap: 22px; flex-wrap: wrap; }
+.links a { text-decoration: none; color: var(--muted); font-size: 14px; }
+.links a:hover, .links a:focus-visible { color: var(--fg); }
+@media (max-width: 640px) { .links { display: none; } }
+
+/* Hero */
+.hero { padding-block: 72px 56px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+@media (max-width: 860px) { .hero { grid-template-columns: minmax(0, 1fr); padding-block: 48px 40px; gap: 32px; } }
+.hello { font-family: var(--font-mono); color: var(--pink); font-size: 15px; margin: 0; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.05; margin: 8px 0 10px; letter-spacing: -0.02em; text-wrap: balance; }
+.role { font-family: var(--font-display); font-size: clamp(1.15rem, 2.5vw, 1.45rem); color: var(--lilac); margin: 0 0 18px; font-weight: 600; }
+.lead { color: var(--muted); max-width: 52ch; margin: 0 0 28px; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-weight: 600; font-size: 15px;
+  padding: 11px 20px; border-radius: 10px; text-decoration: none; cursor: pointer;
+  border: 1px solid var(--btn); transition: transform .15s ease, background .15s ease;
+}
+.btn.solid { background: var(--btn); color: var(--btn-fg); }
+.btn.ghost { background: transparent; color: var(--btn); }
+.btn:hover { transform: translateY(-2px); }
+.btn.ghost:hover { background: var(--surface-2); }
+.btn:focus-visible, .chip:focus-visible, .links a:focus-visible, .copy:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+
+.code {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  font-family: var(--font-mono); font-size: 13.5px; line-height: 1.8; overflow-x: auto;
+}
+.code .bar { display: flex; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.code .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); display: block; }
+.code .bar span { margin-left: auto; color: var(--muted); font-size: 12px; }
+.code pre { margin: 0; padding: 18px 20px; white-space: pre; }
+.k { color: var(--lilac); } .s { color: var(--pink); } .p { color: var(--muted); }
+
+/* Sections */
+section.block { padding-block: 64px; border-top: 1px solid var(--line); }
+.eyebrow { font-family: var(--font-mono); color: var(--pink); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 3.5vw, 2.3rem); margin: 0 0 28px; letter-spacing: -0.01em; text-wrap: balance; }
+h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; margin: 0; line-height: 1.3; }
+
+.about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; }
+@media (max-width: 760px) { .about { grid-template-columns: minmax(0, 1fr); } }
+.about p { margin: 0 0 14px; color: var(--muted); max-width: 62ch; }
+.about p strong { color: var(--fg); font-weight: 600; }
+.facts { display: grid; gap: 14px; align-content: start; }
+.fact { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); font-size: 15px; }
+.fact span:first-child { color: var(--muted); }
+.fact span:last-child { text-align: right; }
+
+/* Timeline */
+.timeline { display: grid; gap: 0; }
+.job { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px; padding-block: 24px; border-bottom: 1px solid var(--line); }
+.job:first-child { padding-top: 0; }
+@media (max-width: 680px) { .job { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+.when { font-family: var(--font-mono); font-size: 13px; color: var(--muted); padding-top: 3px; }
+.when b { display: block; color: var(--pink); font-weight: 500; }
+.job .org { color: var(--lilac); font-weight: 600; margin: 2px 0 10px; font-size: 15px; }
+.job ul { margin: 0; padding-left: 18px; color: var(--muted); }
+.job li { margin-bottom: 6px; }
+.job li::marker { color: var(--pink); }
+
+/* Projects */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: -8px 0 28px; }
+.chip {
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
+  background: transparent; color: var(--muted); border: 1px solid var(--line);
+  padding: 8px 16px; border-radius: 999px; cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--btn); color: var(--btn-fg); border-color: var(--btn); }
+.chip:hover { color: var(--fg); border-color: var(--btn); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+@media (max-width: 400px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  display: flex; flex-direction: column; overflow: hidden; min-width: 0;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.card:hover { transform: translateY(-4px); border-color: var(--btn); }
+.card.featured { grid-column: 1 / -1; }
+.shot {
+  background: var(--surface-2); border-bottom: 1px solid var(--line);
+  aspect-ratio: 16 / 8; max-width: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px; padding: 16px;
+}
+.card.featured .shot { aspect-ratio: 16 / 5; }
+@media (max-width: 680px) { .card .shot, .card.featured .shot { aspect-ratio: auto; min-height: 160px; padding-block: 24px; } }
+.flow { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; }
+.flow span { background: var(--bg); border: 1px solid var(--line); color: var(--fg); padding: 5px 9px; border-radius: 6px; }
+.flow em { color: var(--pink); font-style: normal; }
+.shot small { font-family: var(--font-mono); color: var(--muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.body { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.meta { font-family: var(--font-mono); font-size: 12px; color: var(--pink); }
+.body p { margin: 0; color: var(--muted); font-size: 15px; }
+.card.featured .body > p { max-width: 80ch; }
+.modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 4px; }
+.module { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.module h4 { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; color: var(--pink); margin: 0 0 6px; }
+.module p { font-size: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.tag { font-family: var(--font-mono); font-size: 12px; padding: 4px 9px; border-radius: 6px; background: var(--lilac-bg); color: var(--lilac); }
+.tag.alt { background: var(--pink-bg); color: var(--pink); }
+.card-links { display: flex; gap: 16px; padding-top: 6px; font-size: 14px; font-weight: 600; }
+.card-links a { color: var(--btn); text-decoration: none; }
+.card-links a:hover { color: var(--fg); }
+.note { color: var(--muted); font-size: 13px; font-family: var(--font-mono); }
+.more { margin-top: 28px; color: var(--muted); }
+.more a { color: var(--pink); }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 28px 32px; }
+.skills h3 { font-size: 1rem; color: var(--fg); margin-bottom: 12px; }
+
+/* Education + certs */
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+@media (max-width: 760px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.list { display: grid; gap: 18px; }
+.list .item { border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+.list .item p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+
+/* Contact */
+.contact { text-align: left; }
+.contact p.lead { margin-bottom: 24px; }
+.mail { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 20px; }
+.mail code { font-family: var(--font-mono); font-size: 1.05rem; color: var(--pink); user-select: all; word-break: break-all; }
+.copy { font-family: var(--font-body); font-size: 13px; font-weight: 600; background: var(--surface-2); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+footer { border-top: 1px solid var(--line); padding-block: 28px; color: var(--muted); font-size: 13px; font-family: var(--font-mono); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .card { transition: none; }
+  .btn:hover, .card:hover { transform: none; }
+}
+.count { margin: 20px 0 0; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.tag { cursor: default; user-select: none; }
+.card { animation: none; }
+.card.show { animation: rise .35s ease both; }
+@keyframes rise { from { opacity: .3; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .card.show { animation: none; } }
+</style>
+</head>
+<body>
+<nav class="top">
+  <div class="wrap">
+    <a class="logo" href="#home">&lt;nerimen /&gt;</a>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="wrap hero" id="home">
+    <div>
+      <p class="hello">Hello, I'm</p>
+      <h1>Nerimen Azzouz</h1>
+      <p class="role">Software Engineer</p>
+      <p class="lead">I'm a software engineer who builds AI-powered applications, from LLM assistants and machine learning models to the full-stack web and mobile products around them, with .NET, React, Python and Flutter.</p>
+      <div class="actions">
+        <a class="btn solid" href="#projects">View projects</a>
+        <a class="btn ghost" href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="code" aria-label="Profile summary written as code">
+      <div class="bar"><i></i><i></i><i></i><span>profile.ts</span></div>
+<pre><span class="k">const</span> nerimen = {
+  role: <span class="s">"Software Engineer"</span>,
+  degree: <span class="s">"Software Engineering, 2026"</span>,
+  based: <span class="s">"Tunisia"</span>,
+  stack: [
+    <span class="s">".NET"</span>, <span class="s">"React"</span>, <span class="s">"Flutter"</span>,
+    <span class="s">"Python"</span>, <span class="s">"Power Platform"</span>
+  ],
+  focus: [<span class="s">"AI"</span>, <span class="s">"Full-Stack"</span>, <span class="s">"Mobile"</span>, <span class="s">"Data"</span>],
+  openTo: <span class="s">"Full-time roles"</span>
+};</pre>
+    </div>
+  </header>
+
+  <section class="block" id="about">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h2>Building software end to end</h2>
+      <div class="about">
+        <div>
+          <p>I'm a software engineer who recently graduated from <strong>EPI Digital Sousse</strong>, after two years of integrated preparatory classes and three years of engineering studies.</p>
+          <p>My focus is bringing <strong>AI</strong> into real products. For DRÄXLMAIER, I built a <strong>RAG assistant</strong>, four <strong>machine learning</strong> models and an <strong>OCR</strong> pipeline on top of a digital platform used across industrial sites. I also build the full stack around it: a <strong>.NET 9</strong> booking platform in Lyon, <strong>microservices</strong> with Spring Cloud, a <strong>Flutter</strong> mobile app and <strong>Power BI</strong> dashboards.</p>
+          <p>I care about clean architecture, useful automation, and software that saves people real time.</p>
+        </div>
+        <div class="facts">
+          <div class="fact"><span>Location</span><span>Tunisia</span></div>
+          <div class="fact"><span>Degree</span><span>Software Engineering</span></div>
+          <div class="fact"><span>Graduated</span><span>2026</span></div>
+          <div class="fact"><span>Languages</span><span>Arabic, French, English</span></div>
+          <div class="fact"><span>Status</span><span>Open to work</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience">
+    <div class="wrap">
+      <p class="eyebrow">Experience</p>
+      <h2>Where I've worked</h2>
+      <div class="timeline">
+        <article class="job">
+          <div class="when"><b>Feb 2026 – Aug 2026</b>Sousse, Tunisia</div>
+          <div>
+            <h3>Software Developer Intern</h3>
+            <p class="org">DRÄXLMAIER Group</p>
+            <ul>
+              <li>Digitalized the waste management and evacuation process for the EHS department across the Africa region with Power Apps, Power Automate and SharePoint.</li>
+              <li>Built Power BI dashboards to monitor the process.</li>
+              <li>Built a RAG chatbot with LangChain, ChromaDB and Llama (Ollama), served by a FastAPI backend in Docker.</li>
+              <li>Developed ML models for industrial data: classification, anomaly detection and clustering, plus OCR document extraction.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="job">
+          <div class="when"><b>Jul 2025 – Sep 2025</b>Lyon, France</div>
+          <div>
+            <h3>Software Developer Intern (.NET)</h3>
+            <p class="org">Novatech Consulting</p>
+            <ul>
+              <li>Designed and developed a full-stack ASP.NET Core (.NET 9) web application from concept to deployment.</li>
+              <li>Implemented Entity Framework Core with SQL Server, with optimized queries and data integrity.</li>
+              <li>Integrated authentication, authorization and GDPR-compliant modules.</li>
+              <li>Deployed the application through Azure DevOps.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="job">
+          <div class="when"><b>Jul 2022 – Oct 2022</b>Monastir, Tunisia</div>
+          <div>
+            <h3>Front-End Developer</h3>
+            <p class="org">Restock</p>
+            <ul>
+              <li>Built a web interface from Figma designs with pixel-perfect, responsive implementation (internship).</li>
+              <li>Improved the front end of the company's platform for performance and cross-browser support (part-time).</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="wrap">
+      <p class="eyebrow">Projects</p>
+      <h2>Selected work</h2>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button class="chip" type="button" id="f-all" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" id="f-fullstack" data-filter="fullstack" aria-pressed="false">Full-Stack</button>
+        <button class="chip" type="button" id="f-mobile" data-filter="mobile" aria-pressed="false">Mobile</button>
+        <button class="chip" type="button" id="f-ai" data-filter="ai" aria-pressed="false">AI &amp; Data</button>
+        <button class="chip" type="button" id="f-devops" data-filter="devops" aria-pressed="false">DevOps</button>
+        <button class="chip" type="button" id="f-bi" data-filter="bi" aria-pressed="false">BI</button>
+      </div>
+
+      <div class="grid" id="project-grid">
+        <article class="card featured" data-cat="ai bi fullstack">
+          <div class="shot">
+            <div class="flow"><span>Waste request</span><em>&rarr;</em><span>Approval workflow</span><em>&rarr;</em><span>Data</span><em>&rarr;</em><span>Dashboards</span><span>ML models</span><span>RAG assistant</span></div>
+            <div class="flow"><span>Waste Lists and invoices</span><em>&rarr;</em><span>OCR</span><em>&rarr;</em><span>LLM to JSON</span><em>&rarr;</em><span>Cumulative log</span></div>
+            <small>DRÄXLMAIER Group · EHS</small>
+          </div>
+          <div class="body">
+            <p class="meta">Feb – Aug 2026 · DRÄXLMAIER Group · Sousse Hub</p>
+            <h3>Intelligent Waste Management System</h3>
+            <p>Waste evacuation across DRÄXLMAIER's industrial sites relied on paper forms and emails. I designed and built a digital platform that automates the full request lifecycle, then added an AI layer that answers questions about the data, analyzes it with machine learning and reads incoming documents automatically.</p>
+            <div class="modules">
+              <div class="module">
+                <h4>1. Digital platform</h4>
+                <p>Power Apps application with a multi-step approval workflow, automatic notifications in Power Automate and document management in SharePoint. Power BI dashboards track waste by site, category, danger level, asset type, quantity and volume over time.</p>
+              </div>
+              <div class="module">
+                <h4>2. RAG assistant</h4>
+                <p>Answers questions about approvals, waste volumes, request statuses and rejection reasons. Data is chunked, embedded with nomic-embed-text and stored in ChromaDB. LangChain sends the most relevant chunks with a rules prompt to Llama 3.2 on Ollama, so answers come from real data. It is read-only, hides personal information and resists prompt injection. Served by FastAPI in Docker.</p>
+              </div>
+              <div class="module">
+                <h4>3. Machine learning and analytics</h4>
+                <p>Four scikit-learn models. Two TF-IDF and Logistic Regression classifiers label waste as Danger or No Danger and as Asset or Non-Asset. An Isolation Forest flags abnormal monthly volumes per site and category. K-Means groups sites by waste profile. pandas analytics measure step durations, request statistics and rejection causes.</p>
+              </div>
+              <div class="module">
+                <h4>4. Document recognition</h4>
+                <p>Reads Waste Lists and invoices in Excel, PDF or image format. Text is extracted with pandas, pypdf or Tesseract OCR, structured into JSON by the language model and stored in a cumulative log.</p>
+              </div>
+            </div>
+            <div class="tags">
+              <span class="tag">Power Apps</span><span class="tag">Power Automate</span><span class="tag">SharePoint</span><span class="tag">Power BI</span><span class="tag">React</span><span class="tag">FastAPI</span><span class="tag">Docker</span>
+              <span class="tag alt">Python</span><span class="tag alt">LangChain</span><span class="tag alt">ChromaDB</span><span class="tag alt">Ollama</span><span class="tag alt">Llama 3.2</span><span class="tag alt">nomic-embed-text</span><span class="tag alt">scikit-learn</span><span class="tag alt">pandas</span><span class="tag alt">Tesseract OCR</span>
+            </div>
+            <p class="note">Internal company project. Code and data are confidential.</p>
+          </div>
+        </article>
+
+        <article class="card" data-cat="fullstack">
+          <div class="shot">
+            <div class="flow"><span>Browse services</span><em>→</em><span>Book</span><span>Modify</span><span>Cancel</span><em>→</em><span>Automatic email</span></div>
+            <small>Internship · Novatech</small>
+          </div>
+          <div class="body">
+            <p class="meta">Jul – Sep 2025 · Lyon, France</p>
+            <h3>ServiceLine</h3>
+            <p>A ready-to-customize booking platform for service businesses, such as a car service garage or a beauty salon. Customers browse the services and book an appointment online. They can also modify or cancel their booking, and each action sends them an automatic email confirmation. Each business gets the same platform adapted to its own services and branding. Built end to end in .NET 9 with secure authentication, role-based access and GDPR-compliant data handling.</p>
+            <div class="tags"><span class="tag">ASP.NET Core</span><span class="tag">.NET 9</span><span class="tag">EF Core</span><span class="tag">SQL Server</span><span class="tag">Azure DevOps</span></div>
+            <p class="note">Company project. Code is confidential.</p>
+          </div>
+        </article>
+
+        <article class="card" data-cat="fullstack">
+          <div class="shot">
+            <div class="flow"><span>Gateway</span><em>→</em><span>Users</span><span>Catalog</span><span>Bookings</span><em>↔</em><span>Eureka</span></div>
+            <small>Microservices</small>
+          </div>
+          <div class="body">
+            <p class="meta">Academic project</p>
+            <h3>Booking System</h3>
+            <p>A distributed real-estate booking platform split into microservices for users, property catalogs and bookings, with service discovery, synchronous calls through OpenFeign and JWT security.</p>
+            <div class="tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Cloud</span><span class="tag">Eureka</span><span class="tag">OpenFeign</span><span class="tag">JWT</span><span class="tag">MySQL</span></div>
+            <div class="card-links"><a href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">Code ↗</a></div>
+          </div>
+        </article>
+
+        <article class="card" data-cat="devops">
+          <div class="shot">
+            <div class="flow"><span>git push</span><em>→</em><span>Jenkins</span><em>→</em><span>Tests</span><em>→</em><span>Docker</span><em>→</em><span>Kubernetes</span></div>
+            <small>CI/CD pipeline</small>
+          </div>
+          <div class="body">
+            <p class="meta">Academic project</p>
+            <h3>CI/CD and Infrastructure Automation</h3>
+            <p>A continuous integration and deployment pipeline that runs automated tests on every change, builds Docker images and deploys the application to a Kubernetes cluster.</p>
+            <div class="tags"><span class="tag">Jenkins</span><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Git</span><span class="tag">Bash</span></div>
+            <div class="card-links"><a href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">Code ↗</a></div>
+          </div>
+        </article>
+
+        <article class="card" data-cat="fullstack">
+          <div class="shot">
+            <div class="flow"><span>Next.js</span><em>→</em><span>Express API</span><em>→</em><span>MongoDB</span></div>
+            <small>Web platform</small>
+          </div>
+          <div class="body">
+            <p class="meta">Academic project</p>
+            <h3>Influmatch</h3>
+            <p>A platform where brands and companies find influencers to promote their products. Both sides create profiles, brands send collaboration and partnership requests, and influencers manage their campaigns in one place.</p>
+            <div class="tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span></div>
+            <div class="card-links"><a href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">Code ↗</a></div>
+          </div>
+        </article>
+
+        <article class="card" data-cat="mobile">
+          <div class="shot">
+            <div class="flow"><span>Search stays</span><em>→</em><span>Book dates</span><em>→</em><span>Owner review</span><em>→</em><span>Notification</span></div>
+            <small>Mobile app</small>
+          </div>
+          <div class="body">
+            <p class="meta">Academic project</p>
+            <h3>GoCasa</h3>
+            <p>An Android app for renting houses and apartments. Users browse listings by location and dates, then book a stay with the number of guests and children. The owner confirms or declines the request, and the user follows its status through in-app notifications.</p>
+            <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Firebase</span><span class="tag">Android Studio</span></div>
+            <div class="card-links"><a href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">Code ↗</a></div>
+          </div>
+        </article>
+
+        <article class="card" data-cat="ai">
+          <div class="shot">
+            <div class="flow"><span>SMS text</span><em>→</em><span>Preprocessing</span><em>→</em><span>ML / DL model</span><em>→</em><span>spam | ham</span></div>
+            <small>NLP</small>
+          </div>
+          <div class="body">
+            <p class="meta">Academic project</p>
+            <h3>SMS Spam Detection</h3>
+            <p>Text exploration and preprocessing, then machine learning and deep learning models to classify SMS messages as spam or ham, compared with accuracy, F1-score and confusion matrices, and served through a Flask app.</p>
+            <div class="tags"><span class="tag alt">Python</span><span class="tag alt">scikit-learn</span><span class="tag alt">Keras</span><span class="tag alt">Flask</span></div>
+            <div class="card-links"><a href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">Code ↗</a></div>
+          </div>
+        </article>
+
+        <article class="card" data-cat="bi">
+          <div class="shot">
+            <div class="flow"><span>Northwind DB</span><em>→</em><span>Data model</span><em>→</em><span>DAX KPIs</span><em>→</em><span>Power BI Service</span></div>
+            <small>Business intelligence</small>
+          </div>
+          <div class="body">
+            <p class="meta">Academic project</p>
+            <h3>Northwind Sales Dashboard</h3>
+            <p>An interactive sales dashboard built on the Northwind database, with a clean data model, DAX KPI measures and layouts for desktop and mobile, published on Power BI Service with row-level security roles.</p>
+            <div class="tags"><span class="tag">Power BI Desktop</span><span class="tag">Power BI Service</span><span class="tag">DAX</span></div>
+            <div class="card-links"><a href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">Code ↗</a></div>
+          </div>
+        </article>
+      </div>
+      <p class="count" id="project-count" aria-live="polite">Showing all 8 projects</p>
+      <p class="more">More projects on <a href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">GitHub</a>.</p>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="wrap">
+      <p class="eyebrow">Skills</p>
+      <h2>What I work with</h2>
+      <div class="skills">
+        <div><h3>Back-end</h3><div class="tags"><span class="tag">ASP.NET Core</span><span class="tag">Blazor</span><span class="tag">Entity Framework</span><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">FastAPI</span></div></div>
+        <div><h3>Front-end</h3><div class="tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">Figma</span></div></div>
+        <div><h3>Mobile</h3><div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Firebase</span></div></div>
+        <div><h3>AI and machine learning</h3><div class="tags"><span class="tag alt">Python</span><span class="tag alt">scikit-learn</span><span class="tag alt">NLP</span><span class="tag alt">TensorFlow</span><span class="tag alt">Keras</span><span class="tag alt">LangChain</span><span class="tag alt">LangGraph</span><span class="tag alt">RAG</span><span class="tag alt">Ollama</span><span class="tag alt">OCR</span></div></div>
+        <div><h3>Databases</h3><div class="tags"><span class="tag">SQL Server</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">Firebase</span><span class="tag">ChromaDB</span></div></div>
+        <div><h3>Power Platform and BI</h3><div class="tags"><span class="tag">Power BI</span><span class="tag">Power Apps</span><span class="tag">Power Automate</span><span class="tag">SharePoint</span></div></div>
+        <div><h3>DevOps and cloud</h3><div class="tags"><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Jenkins</span><span class="tag">Azure DevOps</span><span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">Git</span></div></div>
+        <div><h3>Testing and architecture</h3><div class="tags"><span class="tag">Selenium</span><span class="tag">Cucumber</span><span class="tag">Postman</span><span class="tag">Microservices</span><span class="tag">MVC</span><span class="tag">UML</span><span class="tag">Scrum</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="education">
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">Education</p>
+        <h2>Studies</h2>
+        <div class="list">
+          <div class="item"><h3>Software Engineering Degree</h3><p>EPI Digital, Sousse · 2021 – 2026</p><p>2 years of integrated preparatory classes and 3 years of engineering cycle.</p></div>
+          <div class="item"><h3>Baccalaureate in Mathematics</h3><p>Hammam Sousse High School · 2021</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Certifications</p>
+        <h2>Credentials</h2>
+        <div class="list">
+          <div class="item"><h3>Microsoft Certified: Azure Fundamentals</h3><p>Microsoft</p></div>
+          <div class="item"><h3>AWS Academy Cloud Foundations</h3><p>Amazon Web Services</p></div>
+          <div class="item"><h3>CCNA2: Switching, Routing and Wireless Essentials</h3><p>Cisco</p></div>
+          <div class="item"><h3>TOEIC</h3><p>2024 · English, advanced</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2>Let's work together</h2>
+      <p class="lead">I'm looking for a software engineering role. Write to me by email or reach out on LinkedIn.</p>
+      <div class="mail">
+        <code id="email">nero.azzouz@gmail.com</code>
+        <button class="copy" type="button" id="copy-email">Copy</button>
+      </div>
+      <div class="actions">
+        <a class="btn solid" href="https://linkedin.com/in/nerimen-azzouz" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/Nerimenazzouz" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Nerimen Azzouz</div>
+</footer>
+
+<script>
+(function () {
+  var chips = document.querySelectorAll('.chip');
+  var cards = document.querySelectorAll('#project-grid .card');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var f = chip.getAttribute('data-filter');
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      cards.forEach(function (card) {
+        var cats = card.getAttribute('data-cat').split(' ');
+        var show = f === 'all' || cats.indexOf(f) !== -1;
+        card.hidden = !show;
+        card.classList.remove('show');
+        if (show) { void card.offsetWidth; card.classList.add('show'); }
+      });
+      var n = Array.prototype.filter.call(cards, function (c) { return !c.hidden; }).length;
+      document.getElementById('project-count').textContent =
+        f === 'all' ? 'Showing all ' + n + ' projects' : 'Showing ' + n + ' ' + chip.textContent + ' project' + (n > 1 ? 's' : '');
+    });
+  });
+  var btn = document.getElementById('copy-email');
+  btn.addEventListener('click', function () {
+    var text = document.getElementById('email').textContent;
+    function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { done('Copied'); }, fallback);
+    } catch (e) { fallback(); }
+  });
+})();
+</script>
+
+</body>
+</html>
